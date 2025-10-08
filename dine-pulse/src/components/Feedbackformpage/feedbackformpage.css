@@ -1,0 +1,137 @@
+.page-container{
+}
+.logo-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.logo-container *{
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+.logo{
+    max-width: 200px;
+    max-height: 150px;
+}
+.back-button{
+    background: #fff;
+    color: #242424;
+    border: none;
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+.back-ico{
+    width: 15px;
+    height: 15px;
+}
+.language-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 40px;
+    background: white; 
+    color: #888888;  
+    border-radius: 20px; 
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+.language-button div {
+    background-color: transparent;
+    color: #242424;
+    padding: 0 8px;
+    cursor: pointer;
+}
+
+
+.language-button .active-lang {
+    background-color: #563C23; 
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
+.form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    width: 50%;
+    border-radius: 25px;
+    height: 80vh;
+}
+.form *{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.exp-text{
+    color: #702517;
+    font-family: 'ADLaM Display';
+    font-size: 250%;
+}
+.resturant-name{
+    color: #D9B216;
+    font-family: 'ADLaM Display';
+    font-size: 170%;
+}
+.reaction-container{
+    display: flex;
+}
+.reaction-container .reaction-poor,.reaction-okay,.reaction-great{
+    margin: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: black solid 2px;
+    width: 15vh;
+    height: 15vh;
+    border-radius: 25px;
+    font-family: 'ADLaM Display';
+}
+.reaction-container div img{
+    width: 90px;
+}
+textarea{
+    max-width: 60vh;
+    min-width: 60vh;
+    max-height: 20vh;
+    min-height: 20vh;
+    border-radius: 25px;
+    padding: 20px;
+}
+.submit-button{
+    background-color: #E9E1E1;
+    width: 30vh;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    border-radius: 25px;
+    font-family: 'ADLaM Display';
+}
+
+.selected-reaction {
+    background-color: #702517;
+    color: white;
+}
