@@ -1,1 +1,1 @@
-# DinePulse-App
+# ✨ DinePulse-App ✨
