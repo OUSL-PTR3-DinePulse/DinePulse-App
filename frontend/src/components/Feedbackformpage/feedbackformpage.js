@@ -72,7 +72,7 @@ const Feedbackformpage = () => {
                     </div>
         <textarea rows={4} placeholder="Any Comments?" className="comment-box" />
         <div className='submit-button' style={{ backgroundImage: selectedReaction ? 'linear-gradient(to right, #702517, #C57C0C)' : '',color: selectedReaction ? 'white' : 'black' }}> Submit Feedback</div>
-        <div className='bottom-text'>Please select a rating to continue</div>
+        <div className='bottom-text' style ={{ visibility: selectedReaction ? 'hidden': '' }}>Please select a rating to continue</div>
         </div>
 
       </div>
