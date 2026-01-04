@@ -1,18 +1,45 @@
-import {Routes, Route } from "react-router";
-import AdminDashboard from "./pages/adminDashboard";
-import FeedbackFormPage from "./pages/FeedbackFormPage";
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignUpPage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/LoginPage";
+import Signup from "./pages/SignUpPage";
+import Dashboard from "./pages/adminDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AuthRedirect from "./components/AuthRedirect";
 
-function App() {
+export default function App() {
   return (
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AdminDashboard />} />
-        <Route path="/feedbackform" element={<FeedbackFormPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        {/* Public but BLOCKED when logged in */}
+        <Route
+          path="/login"
+          element={
+            <AuthRedirect>
+              <Login />
+            </AuthRedirect>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <AuthRedirect>
+              <Signup />
+            </AuthRedirect>
+          }
+        />
+
+        {/* Protected */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Default */}
+        <Route path="*" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

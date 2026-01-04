@@ -1,11 +1,13 @@
-import React from 'react'
+import { useAuth } from "../context/AuthContext";
 
-function adminDashboard() {
+export default function Dashboard() {
+  const { user, signOut } = useAuth();
+
   return (
     <div>
-      adminDashboard
+      <h1>Welcome {user.name}</h1>
+      <p>{user.email}</p>
+      <button onClick={signOut}>Logout</button>
     </div>
-  )
+  );
 }
-
-export default adminDashboard
