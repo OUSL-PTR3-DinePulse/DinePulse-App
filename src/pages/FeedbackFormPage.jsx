@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import logoImage from "../Assests/dinepulse-logo.png";
-import left from "../Assests/fi-rr-angle-left.png";
-import poorIco from "../Assests/poor-ico.png";
-import goodIco from "../Assests/good-ico.png";
-import greatIco from "../Assests/great-ico.png";
+import logoImage from "../Assets/dinepulse-logo.png";
+import left from "../Assets/fi-rr-angle-left.png";
+import poorIco from "../Assets/poor-ico.png";
+import goodIco from "../Assets/good-ico.png";
+import greatIco from "../Assets/great-ico.png";
 
 const Feedbackformpage = () => {
   const [activeLang, setActiveLang] = useState("En");

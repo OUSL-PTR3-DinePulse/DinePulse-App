@@ -1,0 +1,13 @@
+.submit{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #000000;
+    padding: 10px 14px;
+    border-radius: 45px; /* your requirement */
+    width: 100%;
+    min-height: 60px;
+    max-width: 380px;
+    color: white;
+    justify-content: center;
+}

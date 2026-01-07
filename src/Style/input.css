@@ -1,0 +1,29 @@
+.input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #DBBDA0;
+  padding: 10px 14px;
+  border-radius: 10px; /* your requirement */
+  width: 100%;
+  min-height: 60px;
+  max-width: 380px;
+}
+
+.input img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  background: transparent;
+  opacity: 0.8;
+  margin-left: 20px;
+}
+
+.input input {
+  background-color: #DBBDA0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  width: 100%;
+}
