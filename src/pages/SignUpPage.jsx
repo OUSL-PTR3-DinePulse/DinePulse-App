@@ -9,6 +9,7 @@ import tablepng from '../Assets/Rectangle 14.png'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 
 function SignupPage() {
@@ -51,7 +52,7 @@ function SignupPage() {
         </div></button></form>
         <div className='flex flex-row gap-1 font-medium text-gray-500'>
           <div>Have an account?</div>
-          <div className='text-blue-700 underline'>Log In</div>
+          <Link to="/login" className='text-blue-700 underline cursor-pointer'>Log In</Link>
         </div>
       </div>
 
