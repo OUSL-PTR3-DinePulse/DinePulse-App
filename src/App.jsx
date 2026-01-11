@@ -5,6 +5,7 @@ import Dashboard from "./pages/adminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AuthRedirect from "./components/AuthRedirect";
 import Feedbackformpage from './pages/FeedbackFormPage';
+import CustomerView from './pages/CustomerView'
 
 export default function App() {
   return (
@@ -24,6 +25,14 @@ export default function App() {
           element={
             <AuthRedirect>
               <Signup />
+            </AuthRedirect>
+          }
+        />
+        <Route
+          path="/customerview"
+          element={
+            <AuthRedirect>
+              <CustomerView />
             </AuthRedirect>
           }
         />
@@ -47,7 +56,7 @@ export default function App() {
         />
 
         {/* Default */}
-        <Route path="*" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="*" element={<ProtectedRoute><Feedbackformpage /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );
