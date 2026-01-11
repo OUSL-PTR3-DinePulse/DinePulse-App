@@ -20,7 +20,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signIn(form);
-    navigate("/dashboard");
+    navigate("/feedbackform");
   };
   return (
     <div className="flex flex-col md:flex-row min-h-screen min-w-screen justify-center bg-[#FAFACC]">

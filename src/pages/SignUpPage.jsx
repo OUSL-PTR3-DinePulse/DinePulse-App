@@ -20,7 +20,7 @@ function SignupPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signUp(form);
-    navigate("/dashboard");
+    navigate("/feedbackform");
   };
 
   return (

@@ -4,6 +4,7 @@ import Signup from "./pages/SignUpPage";
 import Dashboard from "./pages/adminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AuthRedirect from "./components/AuthRedirect";
+import Feedbackformpage from './pages/FeedbackFormPage';
 
 export default function App() {
   return (
@@ -33,6 +34,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/feedbackform"
+          element={
+            <ProtectedRoute>
+              <Feedbackformpage />
             </ProtectedRoute>
           }
         />

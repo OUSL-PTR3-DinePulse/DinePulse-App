@@ -5,7 +5,7 @@ export default function AuthRedirect({ children }) {
   const { user, loading } = useAuth();
 
   if (loading) return null;
-  if (user) return <Navigate to="/dashboard" replace />;
+  if (user) return <Navigate to="/feedbackform" replace />;
 
   return children;
 }

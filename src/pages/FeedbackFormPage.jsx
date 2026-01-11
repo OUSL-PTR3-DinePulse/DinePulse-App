@@ -4,16 +4,18 @@ import left from "../Assets/fi-rr-angle-left.png";
 import poorIco from "../Assets/poor-ico.png";
 import goodIco from "../Assets/good-ico.png";
 import greatIco from "../Assets/great-ico.png";
+import { useAuth } from "../context/AuthContext";
 
 const Feedbackformpage = () => {
   const [activeLang, setActiveLang] = useState("En");
   const [selectedReaction, setSelectedReaction] = useState(null);
+  const { signOut } = useAuth();
 
   return (
     <div className="min-h-screen bg-[#FAFACC]">
       {/* Header */}
       <div className="flex items-center justify-between px-40">
-        <button className="w-[100px] h-[40px] flex items-center justify-center bg-white rounded-full shadow-lg">
+        <button onClick={signOut} className="w-[100px] h-[40px] flex items-center justify-center bg-white rounded-full shadow-lg">
           <img src={left} alt="back" className="w-4 h-4" />
         </button>
 
