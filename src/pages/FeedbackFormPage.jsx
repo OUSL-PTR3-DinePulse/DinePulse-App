@@ -18,16 +18,40 @@ const Feedbackformpage = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
-  // Random coupon code generator
-  const generateCoupon = () => {
-    return "DSP-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+  // Translation object
+  const translations = {
+    En: {
+      header1: "How was your dining experience at",
+      header2: "The Golden Spoon Restaurant?",
+      commentPlaceholder: "Any Comments?",
+      submitBtn: "Submit Feedback",
+      selectRating: "Please select a rating to continue",
+      ratings: ["Poor", "Okay", "Great"]
+    },
+    Sin: {
+      header1: "ඔබගේ ආහාර අත්දැකීම කෙසේ තිබුණේද",
+      header2: "ද ගෝල්ඩන් ස්පූන් රෙස්ටුරන්ට්?",
+      commentPlaceholder: "කිසිඳු අදහස් තිබේද?",
+      submitBtn: "ප්‍රතිචාරය යවන්න",
+      selectRating: "කරුණාකර අගය කිරීම තෝරන්න",
+      ratings: ["දුර්වලයි", "හොඳයි", "අතිශය හොඳයි"]
+    }
   };
+
+  // Map rating icons with translated labels
+  const ratingItems = [
+    { icon: poorIco, labelIndex: 0 },
+    { icon: goodIco, labelIndex: 1 },
+    { icon: greatIco, labelIndex: 2 },
+  ];
+
+  // Random coupon code generator
+  const generateCoupon = () => "DSP-" + Math.random().toString(36).substring(2, 8).toUpperCase();
 
   const handleSubmit = async () => {
     if (!selectedReaction) return;
 
     setLoading(true);
-
     const coupon = generateCoupon();
 
     try {
@@ -40,27 +64,29 @@ const Feedbackformpage = () => {
           name: user?.name || "Guest",
           email: user?.email || "No email",
           feedback: selectedReaction,
-          comment: comment,
+          comment,
           couponcode: coupon,
         }
       );
 
       // Send email using EmailJS
       await emailjs.send(
-        "service_r3gslrd",   
-        "template_v3xaslq",  
+        "service_r3gslrd",
+        "template_v3xaslq",
         {
           to_name: user?.name || "Guest",
           to_email: user?.email,
           coupon_code: coupon,
         },
-        "faraQRcatoclTSDC-"       
+        "faraQRcatoclTSDC-"
       );
 
-      navigate("/coupon"); // redirect to coupon page
+      navigate("/coupon", { state: { coupon } });
     } catch (err) {
       console.error(err);
-      alert("Error saving feedback or sending coupon email!");
+      alert(activeLang === "En"
+        ? "Error saving feedback or sending coupon email!"
+        : "ප්‍රතිචාරය සුරැකීම හෝ කූපන් විද්‍යුත් තැපැල් යැවීමේදී දෝෂයක් සිදු විය!");
     }
 
     setLoading(false);
@@ -108,31 +134,29 @@ const Feedbackformpage = () => {
       <div className="flex justify-center">
         <div className="bg-white w-1/2 min-h-[75vh] rounded-[25px] flex flex-col items-center justify-evenly p-6">
           <div className="text-[#702517] text-4xl font-bold text-center">
-            How was your dining experience at
+            {translations[activeLang].header1}
           </div>
 
           <div className="text-[#D9B216] text-2xl font-bold text-center">
-            The Golden Spoon Restaurant?
+            {translations[activeLang].header2}
           </div>
 
           {/* Reactions */}
           <div className="flex gap-6">
-            {[
-              { label: "Poor", icon: poorIco },
-              { label: "Okay", icon: goodIco },
-              { label: "Great", icon: greatIco },
-            ].map((item) => (
+            {ratingItems.map((item) => (
               <div
-                key={item.label}
-                onClick={() => setSelectedReaction(item.label)}
+                key={item.labelIndex}
+                onClick={() => setSelectedReaction(translations[activeLang].ratings[item.labelIndex])}
                 className={`w-[15vh] h-[15vh] flex flex-col items-center justify-center rounded-2xl border-2 cursor-pointer transition ${
-                  selectedReaction === item.label
+                  selectedReaction === translations[activeLang].ratings[item.labelIndex]
                     ? "bg-[#702517] text-white"
                     : "border-black"
                 }`}
               >
-                <img src={item.icon} alt={item.label} className="w-[90px]" />
-                <span className="mt-2 font-bold">{item.label}</span>
+                <img src={item.icon} alt={translations[activeLang].ratings[item.labelIndex]} className="w-[90px]" />
+                <span className="mt-2 font-bold">
+                  {translations[activeLang].ratings[item.labelIndex]}
+                </span>
               </div>
             ))}
           </div>
@@ -140,7 +164,7 @@ const Feedbackformpage = () => {
           {/* Comment */}
           <textarea
             rows={4}
-            placeholder="Any Comments?"
+            placeholder={translations[activeLang].commentPlaceholder}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             className="w-[60vh] h-[20vh] rounded-2xl p-5 border resize-none"
@@ -156,7 +180,7 @@ const Feedbackformpage = () => {
                 : "bg-[#E9E1E1] text-black"
             }`}
           >
-            {loading ? "Saving..." : "Submit Feedback"}
+            {loading ? (activeLang === "En" ? "Saving..." : "සේව් වෙමින් පවතී...") : translations[activeLang].submitBtn}
           </button>
 
           <div
@@ -164,7 +188,7 @@ const Feedbackformpage = () => {
               selectedReaction ? "opacity-0" : "opacity-100"
             }`}
           >
-            Please select a rating to continue
+            {translations[activeLang].selectRating}
           </div>
         </div>
       </div>
