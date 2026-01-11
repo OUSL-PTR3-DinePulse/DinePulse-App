@@ -9,6 +9,7 @@ import CustomerView from './pages/CustomerView'
 import AdminLogin from './pages/AdminLogin'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from "./pages/ResetPassword";
+import CouponPage from './pages/CoupenView'
 
 import { AdminAuthProvider } from "./context/AdminAuthContext";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
@@ -62,6 +63,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <Feedbackformpage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/coupon"
+          element={
+            <ProtectedRoute>
+              <CouponPage />
             </ProtectedRoute>
           }
         />

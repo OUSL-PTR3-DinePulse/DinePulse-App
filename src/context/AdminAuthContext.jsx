@@ -2,27 +2,26 @@ import { createContext, useContext, useState } from "react";
 
 const AdminAuthContext = createContext();
 
-export function AdminAuthProvider({ children }) {
+// eslint-disable-next-line react-refresh/only-export-components
+export const useAdminAuth = () => useContext(AdminAuthContext);
+
+export const AdminAuthProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(
-    localStorage.getItem("adminLogged") === "true"
+    localStorage.getItem("adminAccess") === "true"
   );
 
   const loginAdmin = (password) => {
-    const saved =
-      localStorage.getItem("adminPassword") ||
-      import.meta.env.VITE_ADMIN_PASSWORD;
-
-    if (password === saved) {
-      localStorage.setItem("adminLogged", "true");
+    if (password === import.meta.env.VITE_ADMIN_SECRET) {
       setIsAdmin(true);
+      localStorage.setItem("adminAccess", "true");
       return true;
     }
     return false;
   };
 
   const logoutAdmin = () => {
-    localStorage.removeItem("adminLogged");
     setIsAdmin(false);
+    localStorage.removeItem("adminAccess");
   };
 
   return (
@@ -30,9 +29,4 @@ export function AdminAuthProvider({ children }) {
       {children}
     </AdminAuthContext.Provider>
   );
-}
-
-// eslint-disable-next-line react-refresh/only-export-components
-export function useAdminAuth() {
-  return useContext(AdminAuthContext);
-}
+};

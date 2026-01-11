@@ -1,21 +1,79 @@
 import React, { useState } from "react";
+import emailjs from "emailjs-com";
 import logoImage from "../Assets/dinepulse-logo.png";
 import left from "../Assets/fi-rr-angle-left.png";
 import poorIco from "../Assets/poor-ico.png";
 import goodIco from "../Assets/good-ico.png";
 import greatIco from "../Assets/great-ico.png";
 import { useAuth } from "../context/AuthContext";
+import { databases, DATABASE_ID, COLLECTION_ID, IDHelper } from "../lib/appwrite";
+import { useNavigate } from "react-router-dom";
 
 const Feedbackformpage = () => {
   const [activeLang, setActiveLang] = useState("En");
   const [selectedReaction, setSelectedReaction] = useState(null);
-  const { signOut } = useAuth();
+  const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  // Random coupon code generator
+  const generateCoupon = () => {
+    return "DSP-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+  };
+
+  const handleSubmit = async () => {
+    if (!selectedReaction) return;
+
+    setLoading(true);
+
+    const coupon = generateCoupon();
+
+    try {
+      // Save feedback to Appwrite
+      await databases.createDocument(
+        DATABASE_ID,
+        COLLECTION_ID,
+        IDHelper.unique(),
+        {
+          name: user?.name || "Guest",
+          email: user?.email || "No email",
+          feedback: selectedReaction,
+          comment: comment,
+          couponcode: coupon,
+        }
+      );
+
+      // Send email using EmailJS
+      await emailjs.send(
+        "service_r3gslrd",   
+        "template_v3xaslq",  
+        {
+          to_name: user?.name || "Guest",
+          to_email: user?.email,
+          coupon_code: coupon,
+        },
+        "faraQRcatoclTSDC-"       
+      );
+
+      navigate("/coupon"); // redirect to coupon page
+    } catch (err) {
+      console.error(err);
+      alert("Error saving feedback or sending coupon email!");
+    }
+
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen bg-[#FAFACC]">
       {/* Header */}
       <div className="flex items-center justify-between px-40">
-        <button onClick={signOut} className="w-[100px] h-[40px] flex items-center justify-center bg-white rounded-full shadow-lg">
+        <button
+          onClick={signOut}
+          className="w-[100px] h-[40px] flex items-center justify-center bg-white rounded-full shadow-lg"
+        >
           <img src={left} alt="back" className="w-4 h-4" />
         </button>
 
@@ -67,8 +125,7 @@ const Feedbackformpage = () => {
               <div
                 key={item.label}
                 onClick={() => setSelectedReaction(item.label)}
-                className={`w-[15vh] h-[15vh] flex flex-col items-center justify-center rounded-2xl border-2 cursor-pointer transition
-                ${
+                className={`w-[15vh] h-[15vh] flex flex-col items-center justify-center rounded-2xl border-2 cursor-pointer transition ${
                   selectedReaction === item.label
                     ? "bg-[#702517] text-white"
                     : "border-black"
@@ -84,29 +141,31 @@ const Feedbackformpage = () => {
           <textarea
             rows={4}
             placeholder="Any Comments?"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
             className="w-[60vh] h-[20vh] rounded-2xl p-5 border resize-none"
           />
 
           {/* Submit */}
           <button
-            className={`w-[30vh] h-[10vh] rounded-2xl font-bold transition
-            ${
+            onClick={handleSubmit}
+            disabled={!selectedReaction || loading}
+            className={`w-[30vh] h-[10vh] rounded-2xl font-bold transition ${
               selectedReaction
                 ? "bg-gradient-to-r from-[#702517] to-[#C57C0C] text-white"
                 : "bg-[#E9E1E1] text-black"
             }`}
           >
-            Submit Feedback
+            {loading ? "Saving..." : "Submit Feedback"}
           </button>
 
           <div
-  className={`text-gray-600 text-1xl transition-opacity duration-300 ${
-    selectedReaction ? "opacity-0" : "opacity-100"
-  }`}
->
-  Please select a rating to continue
-</div>
-
+            className={`text-gray-600 text-1xl transition-opacity duration-300 ${
+              selectedReaction ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            Please select a rating to continue
+          </div>
         </div>
       </div>
     </div>
