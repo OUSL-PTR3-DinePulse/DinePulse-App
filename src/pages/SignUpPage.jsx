@@ -45,7 +45,8 @@ function SignupPage() {
           <input type="password" placeholder='Password' onChange={(e)=>setForm({...form,password:e.target.value})}  autoComplete="off"/>
         </div>
         <div className='w-[380px] flex text-center justify-center underline'>
-          Forgot your Password?
+          <Link to='/forgotpassword'>
+          Forgot your Password?</Link>
         </div><button>
         <div className='submit'>
           Sign Up

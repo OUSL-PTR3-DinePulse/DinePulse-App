@@ -29,3 +29,17 @@ export const logout = async () => {
 export const getCurrentUser = async () => {
   return await account.get();
 };
+
+
+// Send reset link to email
+export const sendPasswordRecovery = async (email) => {
+  return await account.createRecovery(
+    email,
+    import.meta.env.VITE_APPWRITE_RESET_URL // redirect URL
+  );
+};
+
+// Reset password using secret + userId
+export const completePasswordReset = async (userId, secret, password) => {
+  return await account.updateRecovery(userId, secret, password);
+};

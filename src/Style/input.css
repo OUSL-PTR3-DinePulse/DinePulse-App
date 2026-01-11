@@ -27,3 +27,15 @@
   font-size: 16px;
   width: 100%;
 }
+.input input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #DBBDA0 inset !important;
+  box-shadow: 0 0 0 1000px #DBBDA0 inset !important;
+  -webkit-text-fill-color: #000 !important;
+}
+
+.input input:-webkit-autofill:hover,
+.input input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #DBBDA0 inset !important;
+  box-shadow: 0 0 0 1000px #DBBDA0 inset !important;
+  -webkit-text-fill-color: #000 !important;
+}

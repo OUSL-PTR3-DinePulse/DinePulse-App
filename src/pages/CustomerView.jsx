@@ -12,9 +12,10 @@ const Feedbackformpage = () => {
     <div className="min-h-screen bg-[#FAFACC] flex flex-col gap-20">
       {/* Header */}
       <div className="flex items-center justify-between px-40">
+        <Link to='/admin'>
         <button className="flex items-center justify-center bg-white rounded-full shadow-lg px-4 py-2 text-[#702517] font-bold">
           Admin View
-        </button>
+        </button></Link>
 
         <img src={logoImage} alt="logo" className="max-w-[150px]" />
 

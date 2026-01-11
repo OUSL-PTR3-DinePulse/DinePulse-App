@@ -1,7 +1,6 @@
 import logo from '../Assets/dinepulse-logo.png'
 import bellico from '../Assets/bell.png'
 import downloadIco from '../Assets/fi-rs-sign-in.png'
-import userico from '../Assets/user.png';
 import user3d from '../Assets/User_perspective_matte.png'
 import calender3d from '../Assets/Calendar_perspective_matte.png'
 import graph3d from '../Assets/Chart_perspective_matte.png'
@@ -9,48 +8,15 @@ import gift3d from '../Assets/Gift_perspective_matte.png'
 import poorIco from "../Assets/poor-ico.png";
 import goodIco from "../Assets/good-ico.png";
 import greatIco from "../Assets/great-ico.png";
-import { useAuth } from "../context/AuthContext";
 import infoico from '../Assets/fi-rr-info.png'
-import React, { useState } from "react";
+import { useAdminAuth } from "../context/AdminAuthContext";
+
 export default function Dashboard() {
-  const { user, signOut } = useAuth();
-  const [open, setOpen] = useState(false);
+  const { logoutAdmin } = useAdminAuth();
   
 
   return (
     <div className="bg-[#FAFACC] min-h-screen md:min-w-[35%]">
-      {open && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[999]" onClick={() => setOpen(false)}>
-          <div className="bg-white text-black w-80 p-6 rounded-2xl shadow-2xl flex flex-col items-center gap-6" onClick={(e) => e.stopPropagation()}>
-      <img
-        src={userico}
-        className="w-24 h-24 rounded-full border shadow"
-        alt="profile"
-      />
-      <h2 className="text-xl font-bold uppercase">{user.name}</h2>
-
-      <button className="w-full py-2 bg-black text-white rounded-lg hover:opacity-90">
-        Reset Password
-      </button>
-
-      <button
-        onClick={signOut}
-        className="w-full py-2 border border-black rounded-lg hover:bg-gray-100"
-      >
-        Logout
-      </button>
-
-      <button
-        className="text-sm text-gray-600 hover:text-black"
-        onClick={() => setOpen(false)}
-      >
-        Close
-      </button>
-    </div>
-  </div>
-)}
-
-
 
       <div className="w-screen flex flex-row bg-white items-center ">
         <img src={logo} alt="logo" className="max-w-[100px] ml-10 mr-auto"/>
@@ -68,9 +34,8 @@ export default function Dashboard() {
             <div className='text-[#702517] font-bold'>View Alerts</div>
           </div>
 
-          <div className='flex flex-row gap-3  border p-2 rounded-lg shadow-md items-center bg-[#702517]' onClick={() => setOpen(true)}>
-            <div className='text-white font-bold uppercase'>{user.name}</div>
-            <img src={userico} alt="User_icon" className='max-h-[30px] bg-white p-1 rounded-xl'/>
+          <div className='flex flex-row gap-3  border px-8 py-2 rounded-lg shadow-md items-center bg-[#702517]' onClick={logoutAdmin}>
+            <div className='text-white font-bold uppercase'>logout</div>
           </div>
         </div>
       </div>
@@ -227,8 +192,6 @@ export default function Dashboard() {
 
 
 
-
-      <button onClick={signOut}>Logout</button>
       
 
     </div>

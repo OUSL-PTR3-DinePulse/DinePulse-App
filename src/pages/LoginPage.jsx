@@ -40,7 +40,8 @@ function Login() {
           <input type="password" placeholder='Password' onChange={(e)=>setForm({...form,password:e.target.value})}/>
         </div>
         <div className='w-[380px] flex text-center justify-center underline'>
-          Forgot your Password?
+          <Link to='/forgotpassword'>
+          Forgot your Password?</Link>
         </div>
         <button>
         <div className='submit'>

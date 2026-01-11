@@ -1,9 +1,24 @@
 import React, { useState } from "react";
 import logoImage from "../Assets/dinepulse-logo.png";
 import { Link } from "react-router";
+import { useAdminAuth } from "../context/AdminAuthContext";
+import { Navigate } from "react-router-dom";
 
 const Feedbackformpage = () => {
-  const [activeLang, setActiveLang] = useState("En");
+  
+
+  const { isAdmin, loginAdmin } = useAdminAuth();
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+  
+    if (isAdmin) return <Navigate to="/admin/dashboard" />;
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const success = loginAdmin(password);
+  
+      if (!success) setError("Incorrect password");
+    };
 
   return (
     <div className="min-h-screen bg-[#FAFACC] flex flex-col gap-20">
@@ -16,28 +31,8 @@ const Feedbackformpage = () => {
 
         <img src={logoImage} alt="logo" className="max-w-[150px]" />
 
-        <div className="flex items-center bg-white rounded-full shadow-lg px-2 py-1 text-sm">
-          <span
-            onClick={() => setActiveLang("En")}
-            className={`px-3 py-1 rounded-full cursor-pointer ${
-              activeLang === "En"
-                ? "bg-[#563C23] text-white font-bold"
-                : "text-gray-700"
-            }`}
-          >
-            En
-          </span>
-          |
-          <span
-            onClick={() => setActiveLang("Sin")}
-            className={`px-3 py-1 rounded-full cursor-pointer ${
-              activeLang === "Sin"
-                ? "bg-[#563C23] text-white font-bold"
-                : "text-gray-700"
-            }`}
-          >
-            Sin
-          </span>
+        <div className="flex items-center bg-white rounded-full shadow-lg px-2 py-1 text-sm none">
+          
         </div>
       </div>
 
@@ -52,11 +47,13 @@ const Feedbackformpage = () => {
               <div className="text-[#702517] text-4xl font-bold ">Admin Access</div>
               <div className="text-[#702517] text-sm  ">Enter your credentials to access the dashboard</div>
           </div>
+          <form onSubmit={handleSubmit} className='flex flex-col gap-8' >
           <div>
             <div className="text-[#702517] font-bold">Password</div>
-            <input type="password" className="border border-black w-[50vh] h-[6vh] rounded-lg placeholder-[#702517] px-3" placeholder='Enter admin password'/>
+            <input type="password" className="border border-black w-[50vh] h-[6vh] rounded-lg placeholder-[#702517] px-3" placeholder='Enter admin password' onChange={(e) => setPassword(e.target.value)}/>
           </div>
-          <button><div className='submit'>Log In</div></button>
+          <button><div className='submit'>Log In</div></button></form>
+          {error && <p className="text-red-500">{error}</p>}
           
 
 
