@@ -13,6 +13,7 @@ import CouponPage from './pages/CoupenView'
 
 import { AdminAuthProvider } from "./context/AdminAuthContext";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   return (
@@ -109,6 +110,7 @@ export default function App() {
           }
         />
       </Routes>
+      <Toaster />
     </BrowserRouter>
   );
 }

@@ -8,6 +8,7 @@ import greatIco from "../Assets/great-ico.png";
 import { useAuth } from "../context/AuthContext";
 import { databases, DATABASE_ID, COLLECTION_ID, IDHelper } from "../lib/appwrite";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Feedbackformpage = () => {
   const [activeLang, setActiveLang] = useState("En");
@@ -38,7 +39,7 @@ const Feedbackformpage = () => {
     }
   };
 
-  // Map rating icons with translated labels
+  
   const ratingItems = [
     { icon: poorIco, labelIndex: 0 },
     { icon: goodIco, labelIndex: 1 },
@@ -55,7 +56,7 @@ const Feedbackformpage = () => {
     const coupon = generateCoupon();
 
     try {
-      // Save feedback to Appwrite
+      
       await databases.createDocument(
         DATABASE_ID,
         COLLECTION_ID,
@@ -81,10 +82,11 @@ const Feedbackformpage = () => {
         "faraQRcatoclTSDC-"
       );
 
+      toast.success("Saved successfully!");
       navigate("/coupon", { state: { coupon } });
     } catch (err) {
       console.error(err);
-      alert(activeLang === "En"
+      toast.error(activeLang === "En"
         ? "Error saving feedback or sending coupon email!"
         : "ප්‍රතිචාරය සුරැකීම හෝ කූපන් විද්‍යුත් තැපැල් යැවීමේදී දෝෂයක් සිදු විය!");
     }

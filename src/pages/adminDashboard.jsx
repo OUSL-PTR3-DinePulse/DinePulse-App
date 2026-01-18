@@ -15,6 +15,7 @@ import { databases, DATABASE_ID, COLLECTION_ID } from "../lib/appwrite";
 import { Query } from "appwrite";
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import toast from "react-hot-toast";
 
 export default function Dashboard() {
   const { logoutAdmin } = useAdminAuth();
@@ -59,6 +60,7 @@ export default function Dashboard() {
 
       } catch (error) {
         console.error("Error loading feedback:", error);
+        toast.error("Error loading feedback");
       }
 
       setLoading(false);
@@ -103,10 +105,11 @@ export default function Dashboard() {
       a.download = `feedback_${new Date().toISOString().split("T")[0]}.csv`;
       a.click();
       window.URL.revokeObjectURL(url);
+      toast.success("Downloaded!");
 
     } catch (err) {
       console.error("Error exporting data:", err);
-      alert("Failed to export data");
+      toast.error("Failed to export data");
     }
   };
 

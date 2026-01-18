@@ -3,13 +3,13 @@ import logoImage from "../Assets/dinepulse-logo.png";
 import { Link } from "react-router";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Navigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Feedbackformpage = () => {
   
 
   const { isAdmin, loginAdmin } = useAdminAuth();
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
   
     if (isAdmin) return <Navigate to="/admin/dashboard" />;
   
@@ -17,7 +17,9 @@ const Feedbackformpage = () => {
       e.preventDefault();
       const success = loginAdmin(password);
   
-      if (!success) setError("Incorrect password");
+      if (!success){
+         toast.error("Incorrect password");
+      }
     };
 
   return (
@@ -53,7 +55,7 @@ const Feedbackformpage = () => {
             <input type="password" className="border border-black w-[50vh] h-[6vh] rounded-lg placeholder-[#702517] px-3" placeholder='Enter admin password' onChange={(e) => setPassword(e.target.value)}/>
           </div>
           <button><div className='submit'>Log In</div></button></form>
-          {error && <p className="text-red-500">{error}</p>}
+          
           
 
 

@@ -9,28 +9,28 @@ import "../Style/submit.css";
 import pass from '../Assets/pass.png'
 import mail from '../Assets/email.png'
 import tablepng from '../Assets/Rectangle 14.png'
+import toast from "react-hot-toast";
 
 function Login() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if email or password is empty
+    
     if (!form.email || !form.password) {
-      setError("Email and password cannot be empty");
+      toast.error("Email and password cannot be empty");
       return;
     }
 
     try {
       await signIn(form);
       navigate("/feedbackform");
+      toast.success('Login successful. Welcome back!');
     } catch (err) {
-      // Handle auth error (wrong credentials etc.)
-      setError(err.message || "Login failed. Please try again.");
+      toast.error(err.message || "Login failed. Please try again.");
     }
   };
 
@@ -50,7 +50,7 @@ function Login() {
               placeholder='Email' 
               onChange={(e)=> {
                 setForm({...form,email:e.target.value});
-                setError(""); // clear error when typing
+                
               }}
             />
           </div>
@@ -61,13 +61,11 @@ function Login() {
               placeholder='Password' 
               onChange={(e)=> {
                 setForm({...form,password:e.target.value});
-                setError(""); // clear error when typing
+                
               }}
             />
           </div>
 
-          {/* Error message */}
-          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 
           <div className='w-[380px] flex text-center justify-center underline'>
             <Link to='/forgotpassword'>

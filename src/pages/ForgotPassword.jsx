@@ -9,6 +9,7 @@ import mail from '../Assets/email.png'
 import forgotico from '../Assets/Gemini_Generated_Image_9nuzt29nuzt29nuz__1_-removebg-preview 1.png'
 
 import { sendPasswordRecovery } from "../services/auth.service";
+import toast from "react-hot-toast";
 
 
 function Login() {
@@ -21,8 +22,9 @@ function Login() {
     try {
       await sendPasswordRecovery(email);
       setMessage("Password reset link has been sent to your email.");
+      toast("reset link has been sent to your email.");
     } catch (err) {
-      setMessage("Something went wrong.");
+      toast.error("Something went wrong.");
       console.error(err);
     }
   };

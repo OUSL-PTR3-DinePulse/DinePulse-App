@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import toast from "react-hot-toast";
 
 const AdminAuthContext = createContext();
 
@@ -14,6 +15,7 @@ export const AdminAuthProvider = ({ children }) => {
     if (password === import.meta.env.VITE_ADMIN_SECRET) {
       setIsAdmin(true);
       localStorage.setItem("adminAccess", "true");
+      toast.success("Login successful!");
       return true;
     }
     return false;
@@ -22,6 +24,7 @@ export const AdminAuthProvider = ({ children }) => {
   const logoutAdmin = () => {
     setIsAdmin(false);
     localStorage.removeItem("adminAccess");
+    toast.success("Logout successful!");
   };
 
   return (

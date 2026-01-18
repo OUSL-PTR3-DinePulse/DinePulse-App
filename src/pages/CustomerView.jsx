@@ -5,6 +5,7 @@ import goodIco from "../Assets/good-ico.png";
 import greatIco from "../Assets/great-ico.png";
 import { Link } from "react-router";
 
+
 const Feedbackformpage = () => {
   const [activeLang, setActiveLang] = useState("En");
 
@@ -27,7 +28,6 @@ const Feedbackformpage = () => {
       adminBtn: "පරිපාලක දසුන",
     }
   };
-
   const t = translations[activeLang]; 
 
   return (

@@ -9,27 +9,29 @@ import tablepng from '../Assets/Rectangle 14.png';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 function SignupPage() {
   const { signUp } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ fullName:"", email:"", password:"" });
-  const [error, setError] = useState("");
+  const [ setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validation: check if fields are empty
     if (!form.fullName || !form.email || !form.password) {
-      setError("All fields are required");
+      toast.error("All fields are required");
       return;
     }
 
     try {
       await signUp(form);
       navigate("/feedbackform");
+      toast.success("Account created successfully!");
     } catch (err) {
-      setError(err.message || "Signup failed. Please try again.");
+      toast.error(err.message || "Signup failed. Please try again.");
     }
   };
 
@@ -74,7 +76,6 @@ function SignupPage() {
           </div>
 
           {/* Error message */}
-          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 
           <div className='w-[380px] flex text-center justify-center underline'>
             <Link to='/forgotpassword'>Forgot your Password?</Link>

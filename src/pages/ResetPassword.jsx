@@ -10,6 +10,7 @@ import forgotico from '../Assets/Gemini_Generated_Image_9nuzt29nuzt29nuz__1_-rem
 
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { completePasswordReset } from "../services/auth.service";
+import toast from "react-hot-toast";
 
 
 function Login() {
@@ -20,17 +21,16 @@ function Login() {
     const secret = params.get("secret");
   
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
   
     const handleSubmit = async (e) => {
       e.preventDefault();
   
       try {
         await completePasswordReset(userId, secret, password);
-        setMessage("Password updated successfully!");
+        toast.success("Password updated successfully!");
         setTimeout(() => navigate("/login"), 1500);
       } catch (err) {
-        setMessage("Error resetting password.");
+        toast.error("Error resetting password");
         console.error(err);
       }
     };
@@ -51,7 +51,6 @@ function Login() {
         <div className='submit'>
           Log In
         </div></button>
-        {message && <p className="text-red-500">{message}</p>}
         </form>
         
       </div>
