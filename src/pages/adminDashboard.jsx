@@ -86,13 +86,14 @@ export default function Dashboard() {
       }
 
       const csvRows = [];
-      csvRows.push(["ID", "Feedback", "Comment", "Created At"]);
+      csvRows.push(["ID", "Feedback", "Comment","Coupon Code", "Created At"]);
 
       response.documents.forEach(doc => {
         csvRows.push([
           doc.$id,
           doc.feedback || "",
           doc.comment || "",
+          doc.couponcode || "",
           doc.$createdAt
         ]);
       });
