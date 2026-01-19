@@ -10,11 +10,13 @@ import pass from '../Assets/pass.png'
 import mail from '../Assets/email.png'
 import tablepng from '../Assets/Rectangle 14.png'
 import toast from "react-hot-toast";
+import useKeyboardSound from './../hooks/useKeyboardSounds';
 
 function Login() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
+  const{playRandomKeySounds} = useKeyboardSound();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,6 +54,7 @@ function Login() {
                 setForm({...form,email:e.target.value});
                 
               }}
+              onKeyDown={playRandomKeySounds}
             />
           </div>
           <div className='input'>
@@ -63,6 +66,7 @@ function Login() {
                 setForm({...form,password:e.target.value});
                 
               }}
+              onKeyDown={playRandomKeySounds}
             />
           </div>
 

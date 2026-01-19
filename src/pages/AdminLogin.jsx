@@ -4,8 +4,10 @@ import { Link } from "react-router";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Navigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useKeyboardSound from "../hooks/useKeyboardSounds";
 
 const Feedbackformpage = () => {
+  const{playRandomKeySounds} = useKeyboardSound();
   
 
   const { isAdmin, loginAdmin } = useAdminAuth();
@@ -52,7 +54,7 @@ const Feedbackformpage = () => {
           <form onSubmit={handleSubmit} className='flex flex-col gap-8' >
           <div>
             <div className="text-[#702517] font-bold">Password</div>
-            <input type="password" className="border border-black w-[50vh] h-[6vh] rounded-lg placeholder-[#702517] px-3" placeholder='Enter admin password' onChange={(e) => setPassword(e.target.value)}/>
+            <input type="password" className="border border-black w-[50vh] h-[6vh] rounded-lg placeholder-[#702517] px-3" onKeyDown={playRandomKeySounds} placeholder='Enter admin password' onChange={(e) => setPassword(e.target.value)}/>
           </div>
           <button><div className='submit'>Log In</div></button></form>
           

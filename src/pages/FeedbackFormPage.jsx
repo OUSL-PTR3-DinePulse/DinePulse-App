@@ -9,12 +9,14 @@ import { useAuth } from "../context/AuthContext";
 import { databases, DATABASE_ID, COLLECTION_ID, IDHelper } from "../lib/appwrite";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useKeyboardSound from './../hooks/useKeyboardSounds';
 
 const Feedbackformpage = () => {
   const [activeLang, setActiveLang] = useState("En");
   const [selectedReaction, setSelectedReaction] = useState(null);
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
+  const{playRandomKeySounds} = useKeyboardSound();
 
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
@@ -83,6 +85,8 @@ const Feedbackformpage = () => {
       );
 
       toast.success("Saved successfully!");
+      const tada = new Audio("/sounds/tada.mp3");
+        tada.play().catch((error) => console.log("Audio play failed:", error));
       navigate("/coupon", { state: { coupon } });
     } catch (err) {
       console.error(err);
@@ -169,6 +173,7 @@ const Feedbackformpage = () => {
             placeholder={translations[activeLang].commentPlaceholder}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
+            onKeyDown={playRandomKeySounds}
             className="w-[60vh] h-[20vh] rounded-2xl p-5 border resize-none"
           />
 

@@ -10,9 +10,11 @@ import forgotico from '../Assets/Gemini_Generated_Image_9nuzt29nuzt29nuz__1_-rem
 
 import { sendPasswordRecovery } from "../services/auth.service";
 import toast from "react-hot-toast";
+import useKeyboardSound from './../hooks/useKeyboardSounds';
 
 
 function Login() {
+  const{playRandomKeySounds} = useKeyboardSound();
     const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
@@ -41,7 +43,7 @@ function Login() {
         <form onSubmit={handleSubmit} className='flex flex-col gap-8' autoComplete="off">
         <div className='input'>
           <img src={mail} />
-          <input type="email" placeholder='Enter email' onChange={(e) => setEmail(e.target.value)}/>
+          <input type="email" placeholder='Enter email' onChange={(e) => setEmail(e.target.value)} onKeyDown={playRandomKeySounds}/>
         </div>
         
         <button>

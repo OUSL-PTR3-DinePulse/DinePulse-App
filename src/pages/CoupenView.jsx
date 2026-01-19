@@ -14,9 +14,8 @@ const Feedbackformpage = () => {
   const { signOut } = useAuth();
   const location = useLocation();
   const { coupon } = location.state || {};
-
+  
   const [showQRModal, setShowQRModal] = useState(false);
-
   return (
     <div className="min-h-screen bg-[#FAFACC] flex flex-col gap-10 relative">
 

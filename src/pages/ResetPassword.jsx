@@ -11,6 +11,7 @@ import forgotico from '../Assets/Gemini_Generated_Image_9nuzt29nuzt29nuz__1_-rem
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { completePasswordReset } from "../services/auth.service";
 import toast from "react-hot-toast";
+import useKeyboardSound from './../hooks/useKeyboardSounds';
 
 
 function Login() {
@@ -21,6 +22,7 @@ function Login() {
     const secret = params.get("secret");
   
     const [password, setPassword] = useState("");
+    const{playRandomKeySounds} = useKeyboardSound();
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -45,7 +47,7 @@ function Login() {
         <form onSubmit={handleSubmit} className='flex flex-col gap-8' autoComplete="off">
         <div className='input'>
           <img src={pass} />
-          <input type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)}/>
+          <input type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)} onKeyDown={playRandomKeySounds}/>
         </div>
         <button>
         <div className='submit'>

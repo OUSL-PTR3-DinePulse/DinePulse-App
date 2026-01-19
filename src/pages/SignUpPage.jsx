@@ -10,14 +10,17 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import toast from 'react-hot-toast';
+import useKeyboardSound from './../hooks/useKeyboardSounds';
 
 function SignupPage() {
   const { signUp } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ fullName:"", email:"", password:"" });
   const [ setError] = useState("");
+  const{playRandomKeySounds} = useKeyboardSound();
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
 
     // Validation: check if fields are empty
@@ -51,6 +54,7 @@ function SignupPage() {
               type="text" 
               placeholder='Name' 
               onChange={(e)=> { setForm({...form,fullName:e.target.value}); setError(""); }} 
+              onKeyDown={playRandomKeySounds}
               autoComplete="off"
             />
           </div>
@@ -61,6 +65,7 @@ function SignupPage() {
               type="text" 
               placeholder='Email' 
               onChange={(e)=> { setForm({...form,email:e.target.value}); setError(""); }} 
+              onKeyDown={playRandomKeySounds}
               autoComplete="off"
             />
           </div>
@@ -71,6 +76,7 @@ function SignupPage() {
               type="password" 
               placeholder='Password' 
               onChange={(e)=> { setForm({...form,password:e.target.value}); setError(""); }} 
+              onKeyDown={playRandomKeySounds}
               autoComplete="off"
             />
           </div>
