@@ -13,6 +13,8 @@ import infoico from '../Assets/fi-rr-info.png';
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { databases, DATABASE_ID, COLLECTION_ID } from "../lib/appwrite";
 import { Query } from "appwrite";
+import { Users } from 'lucide-react';
+import { Link } from "react-router";
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import toast from "react-hot-toast";
@@ -68,6 +70,7 @@ export default function Dashboard() {
 
     fetchFeedback();
   }, []);
+  
 
   const total = poorCount + okayCount + greatCount || 1;
   const poorpercent = Math.floor((poorCount / total) * 100);
@@ -86,7 +89,7 @@ export default function Dashboard() {
       }
 
       const csvRows = [];
-      csvRows.push(["ID", "Feedback", "Comment","Coupon Code", "Created At"]);
+      csvRows.push(["ID", "Feedback", "Comment","Coupon Code", "Discount" ,"Created At"]);
 
       response.documents.forEach(doc => {
         csvRows.push([
@@ -94,6 +97,7 @@ export default function Dashboard() {
           doc.feedback || "",
           doc.comment || "",
           doc.couponcode || "",
+          doc.discount || "",
           doc.$createdAt
         ]);
       });
@@ -178,6 +182,10 @@ export default function Dashboard() {
       <div className="w-screen flex flex-row bg-white items-center">
         <img src={logo} alt="logo" className="max-w-[100px] ml-10 mr-auto"/>
         <div className="flex flex-col md:flex-row gap-5 md:gap-6 p-2 md:p-0 mr-10 ml-auto">
+          <Link className='flex flex-row gap-3 border p-2 rounded-lg shadow-md cursor-pointer' to="/customerlist">
+            <Users className="text-[#702517]"/>
+            <div className='text-[#702517] font-bold'>Customer List </div>
+          </Link>
           <div className='flex flex-row gap-3 border p-2 rounded-lg shadow-md cursor-pointer' onClick={exportDataAsCSV}>
             <img src={downloadIco} alt="download_icon"/>
             <div className='text-[#702517] font-bold'>Export Data</div>
