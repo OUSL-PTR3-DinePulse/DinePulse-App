@@ -306,6 +306,7 @@ export default function Dashboard() {
                     {new Date(item.$createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                   </div>
                   <div>{item.comment || "No comment"}</div>
+                  <div>{item.discount || "error"}</div>
                 </div>
 
                 <img

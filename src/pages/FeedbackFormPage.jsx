@@ -56,6 +56,7 @@ const Feedbackformpage = () => {
 
     setLoading(true);
     const coupon = generateCoupon();
+    const dis = comment ? "10%" : "5%";
 
     try {
       
@@ -69,6 +70,7 @@ const Feedbackformpage = () => {
           feedback: selectedReaction,
           comment,
           couponcode: coupon,
+          discount: dis,
         }
       );
 
@@ -87,7 +89,7 @@ const Feedbackformpage = () => {
       toast.success("Saved successfully!");
       const tada = new Audio("/sounds/tada.mp3");
         tada.play().catch((error) => console.log("Audio play failed:", error));
-      navigate("/coupon", { state: { coupon } });
+      navigate("/coupon", { state: { coupon , dis } });
     } catch (err) {
       console.error(err);
       toast.error(activeLang === "En"

@@ -14,6 +14,7 @@ const Feedbackformpage = () => {
   const { signOut } = useAuth();
   const location = useLocation();
   const { coupon } = location.state || {};
+  const { dis } = location.state || {};
   
   const [showQRModal, setShowQRModal] = useState(false);
   return (
@@ -40,7 +41,7 @@ const Feedbackformpage = () => {
         <div className="bg-white rounded-[25px] flex flex-col py-10 px-20 gap-7 items-center">
           <div className="flex items-center gap-5">
             <img src={hands} alt="hands" />
-            <div className="text-[#702517] text-4xl font-bold text-center mb-5">Enjoy 10% OFF your visit!</div>
+            <div className="text-[#702517] text-4xl font-bold text-center mb-5">Enjoy {dis} OFF your visit!</div>
           </div>
 
           <div 
