@@ -11,13 +11,15 @@ import goodIco from "../Assets/good-ico.png";
 import greatIco from "../Assets/great-ico.png";
 import infoico from '../Assets/fi-rr-info.png';
 import { useAdminAuth } from "../context/AdminAuthContext";
-import { databases, DATABASE_ID, COLLECTION_ID } from "../lib/appwrite";
+import { databases, DATABASE_ID, COLLECTION_ID, IDHelper } from "../lib/appwrite";
 import { Query } from "appwrite";
 import { Users } from 'lucide-react';
 import { Link } from "react-router";
 
+
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import toast from "react-hot-toast";
+import emailjs from "emailjs-com";
 
 export default function Dashboard() {
   const { logoutAdmin } = useAdminAuth();
@@ -33,7 +35,30 @@ export default function Dashboard() {
   const [recentFeedback, setRecentFeedback] = useState([]);
   const [todayTotal, setTodayTotal] = useState(0);
 
-  // Fetch Feedback From Appwrite 
+  
+  //Follow-up email
+  const handleFollowUp = async (email,name) => {
+    
+    try {
+      await emailjs.send(
+          "service_r3gslrd",
+          "template_6rzutdm",
+          {
+            to_name: name || "Guest",
+            to_email: email,
+            message: "We noticed your recent feedback was not positive. Could you please let us know what issue you experienced so we can improve our service?",
+          },
+          "faraQRcatoclTSDC-"
+        );
+        toast.success("Follow-up email sent!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Error sending mail!");
+
+    }
+  }
+
+  // Fetch feedback from Appwrite 
   useEffect(() => {
     const fetchFeedback = async () => {
       try {
@@ -150,7 +175,7 @@ export default function Dashboard() {
       {/* Alerts Modal */}
       {showAlerts && (
         <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
-          <div className="bg-white p-8 rounded-2xl w-[90%] max-w-lg relative">
+          <div className="bg-white p-8 rounded-2xl w-[100%] max-w-lg relative">
             <button
               className="absolute top-4 right-4 text-gray-500 font-bold text-xl"
               onClick={() => setShowAlerts(false)}
@@ -167,6 +192,7 @@ export default function Dashboard() {
                     </div>
                     <div>{item.comment || "No comment"}</div>
                   </div>
+                  <div className={item.feedback === "Poor" ? "block" : "hidden"}><button onClick={() => handleFollowUp(item.email, item.name)} className="bg-red-500 hover:bg-red-300 p-2 rounded-md shadow-sm">Follow-Up</button></div>
                   <img
                     src={item.feedback === "Poor" ? poorIco : item.feedback === "Okay" ? goodIco : greatIco}
                     className='max-w-[50px]'
